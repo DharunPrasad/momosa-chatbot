@@ -4,6 +4,9 @@ module.exports = {
     extend: {
       colors : {
         primary : "#008053"
+      },
+      fontFamily : {
+        inter : "Inter"
       }
     },
   },
