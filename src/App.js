@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Chatbot from './pages/Chatbot';
 import Login from './pages/Login';
 import Splash from './pages/Splash';
 
@@ -30,6 +31,7 @@ function App() {
       <Routes>
         <Route path = "/" element = {<Login/>}/>
         <Route path="/home" element = {<div>Home</div>} />
+        <Route path = "/chatbot" element = {<Chatbot />} />
       </Routes>
       </BrowserRouter>
       </main>

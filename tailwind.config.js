@@ -3,7 +3,8 @@ module.exports = {
   theme: {
     extend: {
       colors : {
-        primary : "#008053"
+        primary : "#008053",
+        chatbg : "#F2F3F3"
       },
       fontFamily : {
         inter : "Inter"
