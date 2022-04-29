@@ -16,18 +16,18 @@ const SingleScheme = () => {
           <div className="" key={scheme._id.$oid}>
             <h2 className="text-2xl font-semibold m-3">{scheme.title}</h2>
 
-            <div className="bg-chatbg p-3 rounded-lg w-10/12 mx-auto ">
-              <h3 className="font-semibold text-lg mb-5">Department :</h3>
+            <div className="bg-chatbg p-3 rounded-lg w-11/12 mx-auto ">
+              <h3 className="font-semibold text-lg mb-3">Department :</h3>
               <p className="text-sm">{scheme.department}</p>
             </div>
 
-            <div className="bg-chatbg p-3 rounded-lg w-10/12 mx-auto mt-10">
-              <h3 className="font-semibold text-lg mb-5">Scheme Details : </h3>
+            <div className="bg-chatbg p-3 rounded-lg w-11/12 mx-auto mt-5">
+              <h3 className="font-semibold text-lg mb-3">Scheme Details : </h3>
               <p className="text-sm">{scheme.details}</p>
             </div>
 
-            <div className="bg-chatbg p-3 rounded-lg w-10/12 mx-auto mt-10">
-              <h3 className="font-semibold text-lg mb-5">Eligibility : </h3>
+            <div className="bg-chatbg p-3 rounded-lg w-11/12 mx-auto mt-5">
+              <h3 className="font-semibold text-lg mb-3">Eligibility : </h3>
               <ul className="flex flex-col">
                 {scheme.eligibility.age && (
                   <li className="text-sm">
@@ -85,36 +85,36 @@ const SingleScheme = () => {
             </div>
 
             {scheme.other && scheme.other.length > 1 && (
-              <div className="bg-chatbg p-3 rounded-lg w-10/12 mx-auto mt-10">
-                <h3 className="font-semibold text-lg mb-5">
+              <div className="bg-chatbg p-3 rounded-lg w-11/12 mx-auto mt-5">
+                <h3 className="font-semibold text-lg mb-3">
                   Other Eligibility :
                 </h3>
-                <p className="">{scheme.other}</p>
+                <p className="text-sm">{scheme.other}</p>
               </div>
             )}
             {scheme && scheme.documents.length > 1 && (
-              <div className="bg-chatbg p-3 rounded-lg w-10/12 mx-auto mt-10">
-                <h3 className="font-semibold text-lg mb-5">
+              <div className="bg-chatbg p-3 rounded-lg w-11/12 mx-auto mt-5">
+                <h3 className="font-semibold text-lg mb-3">
                   Documents Required :
                 </h3>
                 <p className="">
                   {scheme.documents.split("*").map((doc) => (
-                    <li className="scheme-li">{doc}</li>
+                    <li className="text-sm scheme-li">{doc}</li>
                   ))}
                 </p>
               </div>
             )}
 
             {scheme && scheme.reward.length > 1 && (
-              <div className="bg-chatbg p-3 rounded-lg w-10/12 mx-auto mt-10">
-                <h3 className="font-semibold text-lg mb-5">Rewards :</h3>
-                <p className="">{scheme.reward}</p>
+              <div className="bg-chatbg p-3 rounded-lg w-11/12 mx-auto mt-5">
+                <h3 className="font-semibold text-lg mb-3">Rewards :</h3>
+                <p className="text-sm">{scheme.reward}</p>
               </div>
             )}
           </div>
         ))}
 
-        <button className="bg-primary text-white mt-3 rounded-md p-2 w-6/12 text-center block mx-auto">Apply</button>
+        <button className="bg-primary text-white rounded-md p-2 w-6/12 text-center block mt-5 mx-auto">Apply</button>
     </div>
   );
 };

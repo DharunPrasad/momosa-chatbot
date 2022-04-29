@@ -183,7 +183,7 @@ return finalData
           </header>
 
           <div className="h-fit">
-            <div className=" m-4 w-10/12 mx-auto relative bg-chatbg rounded-lg p-3 text-lg">
+            <div className=" m-4 w-10/12 ml-10 relative bg-chatbg rounded-lg p-3 text-lg">
               <Svg />
               <p className="">
                 Hello, my name is Momosa, and I'm here to help you
@@ -191,13 +191,13 @@ return finalData
               </p>
             </div>
 
-            <div className="w-10/12 relative ml-auto mt-10 mx-auto bg-chatbg rounded-md p-3">
+            <div className="w-10/12 relative ml-10 mt-10 mx-auto bg-chatbg rounded-md p-3">
               <Svg />
               What are you looking for ?
             </div>
 
             {displaySearchList && (
-              <form className="w-10/12 relative ml-auto mt-2 mx-auto bg-chatbg rounded-md p-3">
+              <form className="w-10/12 relative mt-2 ml-10 bg-chatbg rounded-md p-3">
                 <select
                   name=""
                   id=""
@@ -318,7 +318,7 @@ return finalData
             )}
           </div>
 
-          <div ref={view}></div>
+          <div ref={view} className = "text-md text-center pt-10 text-gray-500"></div>
         </>
       )}
     </div>

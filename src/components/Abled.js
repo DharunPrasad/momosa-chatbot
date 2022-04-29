@@ -19,7 +19,7 @@ const Abled = ({ data, setAbled, finalSubmit}) => {
     })
   
     setTimeout(() => {
-        finalSubmit(id)
+      finalSubmit(id)
         setDisplaySplash(false)
     }, 2000);
 
