@@ -29,7 +29,7 @@ const Abled = ({ data, setAbled, finalSubmit}) => {
 
   return (
     <>
-    {displaySplash && <Splash caption = "Finding the best mathc for you"/>}
+    {displaySplash && <Splash caption = "Finding the best match for you"/>}
     {!displaySplash && 
     <form
       action=""
