@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import Splash from "../pages/Splash";
 
 const Abled = ({ data, setAbled, finalSubmit}) => {
-  const [displaySplash, setDisplaySplash] = useState(false)
   const AbledInput = useRef();
   const AbledForm = useRef();
   const handleSubmit = (e) => {
@@ -14,23 +13,17 @@ const Abled = ({ data, setAbled, finalSubmit}) => {
     setAbled(id);
     document.querySelectorAll(".Abled-input").forEach(input => {
         input.setAttribute("disabled", "true")
-        setDisplaySplash(true)
 
     })
-  
-    setTimeout(() => {
-      finalSubmit(id)
-        setDisplaySplash(false)
-    }, 2000);
 
+    finalSubmit(id)
   };
 
 
 
   return (
     <>
-    {displaySplash && <Splash caption = "Finding the best mathc for you"/>}
-    {!displaySplash && 
+ 
     <form
       action=""
       onSubmit={handleSubmit}
@@ -49,7 +42,7 @@ const Abled = ({ data, setAbled, finalSubmit}) => {
           </div>
         ))}
     </form>
-}
+
     </>
   );
 };

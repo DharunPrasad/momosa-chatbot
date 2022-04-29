@@ -15,16 +15,18 @@ import Marital from "../components/Marital";
 import Abled from "../components/Abled";
 import { useDispatch } from "react-redux";
 import { getScheme } from "../redux/action/schemeAction";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getBen } from "../redux/action/BenAction";
 import Modal from "../components/Modal";
 
 const Chatbot = () => {
-// Redux
-const dispatch = useDispatch()
+  // Redux
+  const dispatch = useDispatch();
 
-// Dynamic navigation
-const navigate = useNavigate();
+  const location = useLocation();
+
+  // Dynamic navigation
+  const navigate = useNavigate();
 
   //For Data aloccation
   const [list, setList] = useState("");
@@ -38,13 +40,14 @@ const navigate = useNavigate();
   const [marital, setMarital] = useState("");
   const [abled, setAbled] = useState("");
 
-const [finalArray, setFinalArray] = useState(null)
-
+  const [finalArray, setFinalArray] = useState(null);
 
   /*For display Purpose*/
   const [displaySearchList, setDisplaySearchlist] = useState(true);
   const [showChatPage, setShowChatPage] = useState(false);
   const [displayModal, setDisplayModal] = useState(false);
+  const [displaySplash, setDisplaySplash] = useState(false);
+
   //   For GENDER
   const [displayAge, setDisplayAge] = useState(false);
   //   For INCOME
@@ -70,55 +73,61 @@ const [finalArray, setFinalArray] = useState(null)
   const [displayAbled, setDisplayAbled] = useState(false);
 
   const finalSubmit = (abled) => {
-  const  finalData = {
-      beneficiary : list,
+    const finalData = {
+      beneficiary: list,
       age,
-      income_limit : income,
+      income_limit: income,
       gender,
       religion,
       community,
-      educational_qualification : education,
+      educational_qualification: education,
       occupation,
-      marital_status : marital,
-      disabled_person : abled
+      marital_status: marital,
+      disabled_person: abled,
     };
-    console.log(finalData)
+    console.log(finalData);
 
-    dispatch(getBen(finalData))
+    dispatch(getBen(finalData));
+    setDisplaySplash(true);
 
     fetch("http://momosa-api.herokuapp.com/match", {
-      method : "POST",
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify(finalData)
+      body: JSON.stringify(finalData),
+    })
+      .then((res) => {
+        res.json();
+      })
+      .then((data) => {
+        dispatch(getScheme(data));
+        setDisplaySplash(false);
+        navigate("/schemes");
+      });
 
-    }).then(res => res.json()).then(data => dispatch(getScheme(data)))
-    
+    setFinalArray(finalData);
 
-    setFinalArray(finalData)
-
-
-navigate("/schemes")
-
-return finalData
-
+    return finalData;
   };
 
+  useEffect(() => {
+    if (location === "/chatbot") {
+      dispatch(getScheme([]));
+    }
+  }, [location]);
   // Handle modal display
   const handleSession = () => {
-    setDisplayModal(true)
-  }
-
+    setDisplayModal(true);
+  };
 
   // refs
   const view = useRef();
   const listInput = useRef();
 
-
   useEffect(() => {
-    view.current.scrollIntoView({behavior : "smooth"});
+    view.current.scrollIntoView({ behavior: "smooth" });
   }, [
     age,
     income,
@@ -130,7 +139,6 @@ return finalData
     marital,
     abled,
   ]);
-
 
   const handleChangeList = (e) => {
     setList(e.target.value);
@@ -145,7 +153,6 @@ return finalData
     }, 3000);
   }, [handleChangeList]);
 
-
   const {
     data: questions,
     isPendings,
@@ -157,12 +164,16 @@ return finalData
     error: error2,
   } = useFetch("http://momosa-api.herokuapp.com/searchlist");
 
-//   console.log(questions && questions[2]);
+  //   console.log(questions && questions[2]);
 
   //   console.log(questions);
   return (
     <div className="pb-32 max-h-screen min-h-screen overflow-auto">
-      {displayModal && <Modal setDisplayModal = {setDisplayModal}/>}
+      {displayModal && <Modal setDisplayModal={setDisplayModal} />}
+      
+      {displaySplash && <Splash caption="Finding the best match for you" />}
+      {!displaySplash && 
+      <>
       {showChatPage && <Splash caption={`Your session has started`} />}
       {!showChatPage && (
         <>
@@ -176,7 +187,10 @@ return finalData
                 English
               </button>
             ) : (
-              <button className="bg-btnRed text-white rounded-md p-2" onClick = {handleSession}>
+              <button
+                className="bg-btnRed text-white rounded-md p-2"
+                onClick={handleSession}
+              >
                 End Sesstion
               </button>
             )}
@@ -221,7 +235,8 @@ return finalData
             )}
             {!displaySearchList && (
               <p className="w-10/12 mx-auto m-2 text-center rounded-md p-2 text-white bg-primary">
-                {searchList && searchList.filter(l => l._id.$oid === list)[0].title.en}
+                {searchList &&
+                  searchList.filter((l) => l._id.$oid === list)[0].title.en}
               </p>
             )}
             {questions && questions[0] && displayAge && (
@@ -229,9 +244,8 @@ return finalData
                 <Age
                   data={questions[0]}
                   setAge={setAge}
-                  age = {age}
+                  age={age}
                   setDisplayIncome={setDisplayIncome}
-                  
                 />
               </div>
             )}
@@ -240,10 +254,8 @@ return finalData
               <Income
                 data={questions[1]}
                 setIncome={setIncome}
-                income = {income}
+                income={income}
                 setDisplayGender={setDisplayGender}
-                
-
               />
             )}
 
@@ -252,8 +264,6 @@ return finalData
                 data={questions[2]}
                 setGender={setGender}
                 setDisplayReligion={setDisplayReligion}
-                
-
               />
             )}
 
@@ -262,8 +272,6 @@ return finalData
                 data={questions[3]}
                 setReligion={setReligion}
                 setDisplayCommunity={setDisplayCommunity}
-                
-
               />
             )}
 
@@ -272,8 +280,6 @@ return finalData
                 data={questions[4]}
                 setCommunity={setCommunity}
                 setDisplayEducation={setDisplayEducation}
-                
-
               />
             )}
 
@@ -282,8 +288,6 @@ return finalData
                 data={questions[5]}
                 setEducation={setEducation}
                 setDisplayOccupation={setDisplayOccupation}
-                
-
               />
             )}
 
@@ -292,8 +296,6 @@ return finalData
                 data={questions[6]}
                 setOccupation={setOccupation}
                 setDisplayMarital={setDisplayMarital}
-                
-
               />
             )}
 
@@ -302,25 +304,25 @@ return finalData
                 data={questions[7]}
                 setMarital={setMarital}
                 setDisplayAbled={setDisplayAbled}
-                
-
               />
             )}
-           
 
             {questions && questions[8] && displayAbled && (
               <Abled
                 data={questions[8]}
                 setAbled={setAbled}
                 finalSubmit={finalSubmit}
-
               />
             )}
           </div>
 
-          <div ref={view} className = "text-md text-center pt-10 text-gray-500"></div>
+          <div
+            ref={view}
+            className="text-md text-center pt-10 text-gray-500"
+          ></div>
         </>
       )}
+      </>}
     </div>
   );
 };
