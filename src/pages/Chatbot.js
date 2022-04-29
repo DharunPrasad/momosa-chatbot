@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { getScheme } from "../redux/action/schemeAction";
 import { useNavigate } from "react-router-dom";
 import { getBen } from "../redux/action/BenAction";
+import Modal from "../components/Modal";
 
 const Chatbot = () => {
 // Redux
@@ -43,6 +44,7 @@ const [finalArray, setFinalArray] = useState(null)
   /*For display Purpose*/
   const [displaySearchList, setDisplaySearchlist] = useState(true);
   const [showChatPage, setShowChatPage] = useState(false);
+  const [displayModal, setDisplayModal] = useState(false);
   //   For GENDER
   const [displayAge, setDisplayAge] = useState(false);
   //   For INCOME
@@ -104,6 +106,11 @@ return finalData
 
   };
 
+  // Handle modal display
+  const handleSession = () => {
+    setDisplayModal(true)
+  }
+
 
   // refs
   const view = useRef();
@@ -155,6 +162,7 @@ return finalData
   //   console.log(questions);
   return (
     <div className="pb-32 max-h-screen min-h-screen overflow-auto">
+      {displayModal && <Modal setDisplayModal = {setDisplayModal}/>}
       {showChatPage && <Splash caption={`Your session has started`} />}
       {!showChatPage && (
         <>
@@ -168,7 +176,7 @@ return finalData
                 English
               </button>
             ) : (
-              <button className="bg-btnRed text-white rounded-md p-2">
+              <button className="bg-btnRed text-white rounded-md p-2" onClick = {handleSession}>
                 End Sesstion
               </button>
             )}
