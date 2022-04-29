@@ -86,7 +86,7 @@ const [finalArray, setFinalArray] = useState(null)
 
     dispatch(getBen(finalData))
 
-    fetch("https://momosa-api.herokuapp.com/match", {
+    fetch("http://momosa-api.herokuapp.com/match", {
       method : "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -150,12 +150,12 @@ return finalData
     data: questions,
     isPendings,
     error,
-  } = useFetch("https://momosa-api.herokuapp.com/questions");
+  } = useFetch("http://momosa-api.herokuapp.com/questions");
   const {
     data: searchList,
     isPendings: isPending2,
     error: error2,
-  } = useFetch("https://momosa-api.herokuapp.com/searchlist");
+  } = useFetch("http://momosa-api.herokuapp.com/searchlist");
 
 //   console.log(questions && questions[2]);
 
