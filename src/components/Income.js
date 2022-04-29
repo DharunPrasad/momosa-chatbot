@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const Income = ({data, setIncome, setDisplayGender, income}) => {
     const incomeInput = useRef()
@@ -8,12 +8,17 @@ const Income = ({data, setIncome, setDisplayGender, income}) => {
         incomeInput.current.setAttribute("disabled", "true")
         incomeForm.current.classList.add("backdrop")
         setDisplayGender(true);
+        setIncome(incomeInput.current.value)
     }
 
     const handleChange = (e) => {
         setIncome(e.target.value)
 
     }
+
+    useEffect(() => {
+      incomeInput.current.focus()
+    },[])
 
     return (
       

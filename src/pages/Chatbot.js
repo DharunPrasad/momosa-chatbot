@@ -13,8 +13,18 @@ import Education from "../components/Education";
 import Occupation from "../components/Occupation";
 import Marital from "../components/Marital";
 import Abled from "../components/Abled";
+import { useDispatch } from "react-redux";
+import { getScheme } from "../redux/action/schemeAction";
+import { useNavigate } from "react-router-dom";
+import { getBen } from "../redux/action/BenAction";
 
 const Chatbot = () => {
+// Redux
+const dispatch = useDispatch()
+
+// Dynamic navigation
+const navigate = useNavigate();
+
   //For Data aloccation
   const [list, setList] = useState("");
   const [age, setAge] = useState("");
@@ -28,6 +38,7 @@ const Chatbot = () => {
   const [abled, setAbled] = useState("");
 
 const [finalArray, setFinalArray] = useState(null)
+
 
   /*For display Purpose*/
   const [displaySearchList, setDisplaySearchlist] = useState(true);
@@ -56,32 +67,51 @@ const [finalArray, setFinalArray] = useState(null)
   //   for ABLED
   const [displayAbled, setDisplayAbled] = useState(false);
 
-  const finalSubmit = () => {
+  const finalSubmit = (abled) => {
   const  finalData = {
-      list,
+      beneficiary : list,
       age,
-      income,
+      income_limit : income,
       gender,
       religion,
       community,
-      education,
+      educational_qualification : education,
       occupation,
-      marital,
-      abled : localStorage.getItem("abled")
+      marital_status : marital,
+      disabled_person : abled
     };
     console.log(finalData)
 
+    dispatch(getBen(finalData))
+
+    fetch("http://momosa-api.herokuapp.com/match", {
+      method : "POST",
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(finalData)
+
+    }).then(res => res.json()).then(data => dispatch(getScheme(data)))
+    
+
     setFinalArray(finalData)
+
+
+navigate("/schemes")
+
+return finalData
 
   };
 
-  console.log(finalArray)
 
   // refs
   const view = useRef();
+  const listInput = useRef();
+
 
   useEffect(() => {
-    view.current.scrollIntoView();
+    view.current.scrollIntoView({behavior : "smooth"});
   }, [
     age,
     income,
@@ -94,6 +124,7 @@ const [finalArray, setFinalArray] = useState(null)
     abled,
   ]);
 
+
   const handleChangeList = (e) => {
     setList(e.target.value);
     setShowChatPage(true);
@@ -104,10 +135,9 @@ const [finalArray, setFinalArray] = useState(null)
   useEffect(() => {
     setTimeout(() => {
       setShowChatPage(false);
-    }, 1000);
+    }, 3000);
   }, [handleChangeList]);
 
-  const listInput = useRef();
 
   const {
     data: questions,
@@ -124,7 +154,7 @@ const [finalArray, setFinalArray] = useState(null)
 
   //   console.log(questions);
   return (
-    <div className="pb-56">
+    <div className="pb-32 max-h-screen min-h-screen overflow-auto">
       {showChatPage && <Splash caption={`Your session has started`} />}
       {!showChatPage && (
         <>
@@ -145,7 +175,7 @@ const [finalArray, setFinalArray] = useState(null)
           </header>
 
           <div className="h-fit">
-            <div className=" m-2 w-10/12 ml-auto relative bg-chatbg rounded-lg p-3 text-lg">
+            <div className=" m-4 w-10/12 mx-auto relative bg-chatbg rounded-lg p-3 text-lg">
               <Svg />
               <p className="">
                 Hello, my name is Momosa, and I'm here to help you
@@ -153,13 +183,13 @@ const [finalArray, setFinalArray] = useState(null)
               </p>
             </div>
 
-            <div className="w-10/12 relative ml-auto mt-10 mx-2 bg-chatbg rounded-md p-3">
+            <div className="w-10/12 relative ml-auto mt-10 mx-auto bg-chatbg rounded-md p-3">
               <Svg />
               What are you looking for ?
             </div>
 
             {displaySearchList && (
-              <form className="w-10/12 relative ml-auto mt-2 mx-2 bg-chatbg rounded-md p-3">
+              <form className="w-10/12 relative ml-auto mt-2 mx-auto bg-chatbg rounded-md p-3">
                 <select
                   name=""
                   id=""
@@ -167,7 +197,6 @@ const [finalArray, setFinalArray] = useState(null)
                   ref={listInput}
                   onChange={handleChangeList}
                 >
-                  {" "}
                   <option className="text-black">Select One</option>
                   {isPending2 && <p className="text-lg">Loading....</p>}
                   {searchList &&
@@ -183,11 +212,10 @@ const [finalArray, setFinalArray] = useState(null)
               </form>
             )}
             {!displaySearchList && (
-              <p className="w-10/12 ml-auto m-2 text-center rounded-l-md rounded-br-md p-2 text-white bg-primary">
-                {list}
+              <p className="w-10/12 mx-auto m-2 text-center rounded-md p-2 text-white bg-primary">
+                {searchList && searchList.filter(l => l._id.$oid === list)[0].title.en}
               </p>
             )}
-
             {questions && questions[0] && displayAge && (
               <div className="">
                 <Age
@@ -195,6 +223,7 @@ const [finalArray, setFinalArray] = useState(null)
                   setAge={setAge}
                   age = {age}
                   setDisplayIncome={setDisplayIncome}
+                  
                 />
               </div>
             )}
@@ -205,6 +234,8 @@ const [finalArray, setFinalArray] = useState(null)
                 setIncome={setIncome}
                 income = {income}
                 setDisplayGender={setDisplayGender}
+                
+
               />
             )}
 
@@ -213,6 +244,8 @@ const [finalArray, setFinalArray] = useState(null)
                 data={questions[2]}
                 setGender={setGender}
                 setDisplayReligion={setDisplayReligion}
+                
+
               />
             )}
 
@@ -221,6 +254,8 @@ const [finalArray, setFinalArray] = useState(null)
                 data={questions[3]}
                 setReligion={setReligion}
                 setDisplayCommunity={setDisplayCommunity}
+                
+
               />
             )}
 
@@ -229,6 +264,8 @@ const [finalArray, setFinalArray] = useState(null)
                 data={questions[4]}
                 setCommunity={setCommunity}
                 setDisplayEducation={setDisplayEducation}
+                
+
               />
             )}
 
@@ -237,6 +274,8 @@ const [finalArray, setFinalArray] = useState(null)
                 data={questions[5]}
                 setEducation={setEducation}
                 setDisplayOccupation={setDisplayOccupation}
+                
+
               />
             )}
 
@@ -245,6 +284,8 @@ const [finalArray, setFinalArray] = useState(null)
                 data={questions[6]}
                 setOccupation={setOccupation}
                 setDisplayMarital={setDisplayMarital}
+                
+
               />
             )}
 
@@ -253,6 +294,8 @@ const [finalArray, setFinalArray] = useState(null)
                 data={questions[7]}
                 setMarital={setMarital}
                 setDisplayAbled={setDisplayAbled}
+                
+
               />
             )}
            
@@ -262,6 +305,7 @@ const [finalArray, setFinalArray] = useState(null)
                 data={questions[8]}
                 setAbled={setAbled}
                 finalSubmit={finalSubmit}
+
               />
             )}
           </div>

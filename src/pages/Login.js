@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import momosaImage from "../assets/momosa-logo-image.jpg"
 const Login  = () => {
     return ( 
-        <div className="h-full w-full relative">
+        <div className="h-screen w-full relative">
             <div className="centrify w-full">
             <h1 className="text-3xl text-center mb-10">Momosa Chatbot</h1>
             <img src={momosaImage} alt="" className="w-4/12 mx-auto mb-5" />

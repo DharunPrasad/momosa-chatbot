@@ -7,8 +7,8 @@ const Gender = ({ data, setGender, setDisplayReligion }) => {
     e.preventDefault();
   
   };
-  const handleOnclick = (e) => {
-    setGender(e.target.value);
+  const handleOnclick = (id) => {
+    setGender(id);
     setDisplayReligion(true);
     GenderForm.current.classList.add("backdrop");
 
@@ -29,7 +29,7 @@ const Gender = ({ data, setGender, setDisplayReligion }) => {
         data.options.map((option, i) => (
           <div className="my-2 ml-3" key={option.id}>
             <label htmlFor={option.text} className = "flex justify-start items-center">
-              <input type="radio" ref = {GenderInput} name = "gender" className="gender-input" onClick={handleOnclick} value = {option.text} id = {option.text}/>
+              <input type="radio" ref = {GenderInput} name = "gender" className="gender-input" onClick={() => handleOnclick(option.id)} value = {option.text} id = {option.text}/>
               <span className="ml-5"> {option.text}</span>
             </label>
           </div>

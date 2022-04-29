@@ -7,9 +7,9 @@ const Religion = ({ data, setReligion, setDisplayCommunity }) => {
     e.preventDefault();
 
   };
-  const handleOnclick = (e) => {
+  const handleOnclick = (id) => {
     ReligionForm.current.classList.add("backdrop");
-    setReligion(e.target.value);
+    setReligion(id);
     setDisplayCommunity(true);
     document.querySelectorAll(".religion-input").forEach(input => {
         input.setAttribute("disabled", "true")
@@ -29,7 +29,7 @@ const Religion = ({ data, setReligion, setDisplayCommunity }) => {
         data.options.map((option, i) => (
           <div className="my-2 ml-3" key={option.id}>
             <label htmlFor={option.text} className = "flex justify-start items-center">
-              <input type="radio" ref = {ReligionInput} name = "Religion" className="religion-input" onClick={handleOnclick} value = {option.text} id = {option.text}/>
+              <input type="radio" ref = {ReligionInput} name = "Religion" className="religion-input" onClick={() => handleOnclick(option.id)} value = {option.text} id = {option.text}/>
               <span className="ml-5"> {option.text}</span>
             </label>
           </div>

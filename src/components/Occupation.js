@@ -7,9 +7,9 @@ const Occupation = ({ data, setOccupation, setDisplayMarital }) => {
     e.preventDefault();
 
   };
-  const handleOnclick = (e) => {
+  const handleOnclick = (id) => {
     OccupationForm.current.classList.add("backdrop");
-    setOccupation(e.target.value);
+    setOccupation(id);
     setDisplayMarital(true);
     document.querySelectorAll(".Occupation-input").forEach(input => {
         input.setAttribute("disabled", "true")
@@ -29,7 +29,7 @@ const Occupation = ({ data, setOccupation, setDisplayMarital }) => {
         data.options.map((option, i) => (
           <div className="my-2 ml-3" key={option.id}>
             <label htmlFor={option.text} className = "flex justify-start items-center">
-              <input type="radio" ref = {OccupationInput} name = "Occupation" className="Occupation-input" onClick={handleOnclick} value = {option.text} id = {option.text}/>
+              <input type="radio" ref = {OccupationInput} name = "Occupation" className="Occupation-input" onClick={() => handleOnclick(option.id)} value = {option.text} id = {option.text}/>
               <span className="ml-5"> {option.text}</span>
             </label>
           </div>

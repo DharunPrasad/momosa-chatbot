@@ -44,3 +44,7 @@ input[type="radio"]:checked::before{
   border-radius: 50%;
   background-color: #008053;
 }
+
+.scheme-li:first-child{
+display: none;
+}

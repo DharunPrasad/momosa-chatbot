@@ -4,7 +4,7 @@ const SearchList = ({list, error}) => {
         <React.Fragment>
             {error && <p className="text-xl">{error}</p>}
 
-                <option value={list.title.en} className="text-black">{list.title.en}</option>
+                <option value={list._id.$oid} className="text-black">{list.title.en}</option>
         </React.Fragment>
      );
 }

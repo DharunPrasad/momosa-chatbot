@@ -7,9 +7,9 @@ const Community = ({ data, setCommunity, setDisplayEducation }) => {
     e.preventDefault();
 
   };
-  const handleOnclick = (e) => {
+  const handleOnclick = (id) => {
     CommunityForm.current.classList.add("backdrop");
-    setCommunity(e.target.value);
+    setCommunity(id);
     setDisplayEducation(true);
     document.querySelectorAll(".Community-input").forEach(input => {
         input.setAttribute("disabled", "true")
@@ -29,7 +29,7 @@ const Community = ({ data, setCommunity, setDisplayEducation }) => {
         data.options.map((option, i) => (
           <div className="my-2 ml-3" key={option.id}>
             <label htmlFor={option.text} className = "flex justify-start items-center">
-              <input type="radio" ref = {CommunityInput} name = "Community" className="Community-input" onClick={handleOnclick} value = {option.text} id = {option.text}/>
+              <input type="radio" ref = {CommunityInput} name = "Community" className="Community-input" onClick={()=> handleOnclick(option.id)} value = {option.text} id = {option.text}/>
               <span className="ml-5"> {option.text}</span>
             </label>
           </div>

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const Age = ({ data, setAge, setDisplayIncome, age }) => {
     const ageInput = useRef()
@@ -14,6 +14,11 @@ const Age = ({ data, setAge, setDisplayIncome, age }) => {
         setAge(e.target.value)
 
     }
+
+
+    useEffect(() => {
+      ageInput.current.focus()
+    },[])
  
     return (
       

@@ -32843,6 +32843,10 @@ input[type="radio"]:checked::before{
   background-color: #008053;
 }
 
+.scheme-li:first-child{
+  display: none;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

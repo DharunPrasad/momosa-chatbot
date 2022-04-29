@@ -1,25 +1,36 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Splash from "../pages/Splash";
 
 const Abled = ({ data, setAbled, finalSubmit}) => {
+  const [displaySplash, setDisplaySplash] = useState(false)
   const AbledInput = useRef();
   const AbledForm = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
 
   };
-  const handleOnclick = (e) => {
+  const handleOnclick = (id) => {
     AbledForm.current.classList.add("backdrop");
-    setAbled(e.target.value);
-    localStorage.getItem("abled", `${e.target.value}`)
+    setAbled(id);
     document.querySelectorAll(".Abled-input").forEach(input => {
         input.setAttribute("disabled", "true")
+        setDisplaySplash(true)
+
     })
-finalSubmit()
+  
+    setTimeout(() => {
+        finalSubmit(id)
+        setDisplaySplash(false)
+    }, 2000);
+
   };
 
 
 
   return (
+    <>
+    {displaySplash && <Splash caption = "Finding the best mathc for you"/>}
+    {!displaySplash && 
     <form
       action=""
       onSubmit={handleSubmit}
@@ -32,12 +43,14 @@ finalSubmit()
         data.options.map((option, i) => (
           <div className="my-2 ml-3" key={option.id}>
             <label htmlFor={option.id} className = "flex justify-start items-center">
-              <input type="radio" ref = {AbledInput} name = "Abled" className="Abled-input" onClick={handleOnclick} value = {option.id} id = {option.id}/>
+              <input type="radio" ref = {AbledInput} name = "Abled" className="Abled-input" onClick={() => handleOnclick(option.id)} value = {option.id} id = {option.id}/>
               <span className="ml-5"> {option.text}</span>
             </label>
           </div>
         ))}
     </form>
+}
+    </>
   );
 };
 

@@ -1,6 +1,12 @@
 import momosaImage from "../assets/momosa-logo-image.jpg"
 import hug from "../assets/hugging-face.png"
+import { useEffect } from "react";
 const Splash = ({caption}) => {
+
+    useEffect(() => {
+        document.body.scrollTop = 0
+    },[])
+
     return ( 
         <div className="flex flex-col justify-center items-center h-screen w-full border">
             <div className="h-fit w-full">
