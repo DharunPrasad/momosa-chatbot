@@ -154,7 +154,7 @@ const handleSubmit = (e) => {
                 <input type="number" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Adhar Number" onChange={(e) => setAdhar(e.target.value)}  required/>
 
                 <input type="number" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Pan Card" onChange={(e) => setPancard(e.target.value)}  required/>
-            <button className="" >Submit</button>
+            <button className="bg-primary text-white px-3 py-2 ml-auto block rounded-md" >Submit</button>
             </form>
 
         </div>
