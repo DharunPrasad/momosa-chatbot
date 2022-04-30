@@ -27,7 +27,7 @@ const Apply = () => {
     const [pancard, setPancard] = useState("")
 
 const object = {
-    firstname: fatherName,
+    firstname: firstName,
     lastname: lastName,
     email: email,
     dateofbirth: dob,
@@ -44,17 +44,24 @@ const object = {
     occupation: occupation,
     aadhaar: aadhar,
     pancard: pancard,
-    scheme: {
-        type: {id},
-        ref: 'Scheme',
-        required: true,
-    }
+    scheme: id
 
 }
 
 const handleSubmit = (e) => {
     e.preventDefault();
     console.log(object)
+
+    fetch("https://momosa-api.herokuapp.com/apply", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(object),
+    }).then(res => res.json()).then(data => {
+      console.log(data)
+    })
 
 }
 
@@ -78,6 +85,7 @@ const handleSubmit = (e) => {
                 <input type="date" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" required onChange={(e) => setDob(e.target.value)} />
 
                 <select name=""  className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" id="" onChange={(e) => setGender(e.target.value)}>
+                    <option>Select Gender</option>
                     <option value="female">Female</option>
                     <option value="male">Male</option>
                     <option value="thirdgender">Third Gender</option>
@@ -87,6 +95,7 @@ const handleSubmit = (e) => {
                 <input type="text" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Father Name" onChange={(e) => setFatherName(e.target.value)} value = {fatherName}  required/>
                 
                 <select name=""  className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" id="" onChange={(e) => setReligion(e.target.value)}>
+                <option>Select Religion</option>
                     <option value="Hindu">Hindu</option>
                     <option value="Christian">Christian</option>
                     <option value="Muslim">Muslim</option>
@@ -96,6 +105,7 @@ const handleSubmit = (e) => {
                 
 
                 <select name=""  className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" id="" onChange={(e) => setCaste(e.target.value)}>
+                <option>Select Caste</option>
                     <option value="OC/FC">OC/FC</option>
                     <option value="BC">BC</option>
                     <option value="OBC">MBC</option>
@@ -106,6 +116,8 @@ const handleSubmit = (e) => {
                 </select>
 
                 <select name=""  className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" id="" onChange={(e) => setMarital(e.target.value)}>
+                <option>Select Marital Status</option>
+
                     <option value="Single">Single</option>
                     <option value="Soon to be Married">Soon to be Married</option>
                     <option value="Married">Married</option>
@@ -116,6 +128,7 @@ const handleSubmit = (e) => {
                 </select>
 
                 <select name=""  className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" id="" onChange={(e) => setEducation(e.target.value)}>
+                <option>Select Occupation</option>
                     <option value="Doctorate or Higher">Doctorate or Higher</option>
                     <option value="Protgraduate">Postgraduate</option>
                     <option value="Undergraduate">Undergraduate</option>
@@ -132,13 +145,15 @@ const handleSubmit = (e) => {
                 
                 <input type="text" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Occupation" onChange={(e) => setOccupation(e.target.value)}  required/>
 
-                <input type="text" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Pin Code" onChange={(e) => setPincode(e.target.value)}  required/>
+                <input type="number" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Pin Code" onChange={(e) => setPincode(e.target.value)}  required/>
+
+                <input type="number" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Phone" onChange={(e) => setPhone(e.target.value)}  required/>
 
                 <input type="text" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Blood Group" onChange={(e) => setBloodGroup(e.target.value)}  required/>
 
-                <input type="text" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Adhar Number" onChange={(e) => setAdhar(e.target.value)}  required/>
+                <input type="number" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Adhar Number" onChange={(e) => setAdhar(e.target.value)}  required/>
 
-                <input type="text" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Pan Card" onChange={(e) => setPancard(e.target.value)}  required/>
+                <input type="number" className="bg-chatbg rounded-md p-3 w-full my-2 outline-none" placeholder="Pan Card" onChange={(e) => setPancard(e.target.value)}  required/>
             <button className="" >Submit</button>
             </form>
 
