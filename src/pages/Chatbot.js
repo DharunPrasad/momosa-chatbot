@@ -97,26 +97,19 @@ const Chatbot = () => {
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify(finalData),
+    }).then(res => res.json()).then(data => {
+      dispatch(getScheme(data))
+      navigate("/schemes")
     })
-      .then((res) => {
-        res.json();
-      })
-      .then((data) => {
-        dispatch(getScheme(data));
-        setDisplaySplash(false);
-        navigate("/schemes");
-      });
 
-    setFinalArray(finalData);
-
-    return finalData;
+    // setFinalArray(finalData);
   };
 
-  useEffect(() => {
-    if (location === "/chatbot") {
-      dispatch(getScheme([]));
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   if (location === "/chatbot") {
+  //     dispatch(getScheme([]));
+  //   }
+  // }, [location]);
   // Handle modal display
   const handleSession = () => {
     setDisplayModal(true);
@@ -137,7 +130,6 @@ const Chatbot = () => {
     education,
     occupation,
     marital,
-    abled,
   ]);
 
   const handleChangeList = (e) => {

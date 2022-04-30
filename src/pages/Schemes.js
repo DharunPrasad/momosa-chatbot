@@ -12,7 +12,7 @@ const Schemes = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            if(schemes.length < 1){
+            if(schemes && schemes.length < 1){
             setErrorMsg("Sorry there are no schemes available for you now 😔")
              setDisplayLink(true)   
         }
