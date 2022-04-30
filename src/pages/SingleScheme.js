@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const SingleScheme = () => {
   const schemes = useSelector((state) => state.schemeReducer.schemes);
@@ -114,7 +114,7 @@ const SingleScheme = () => {
           </div>
         ))}
 
-        <button className="bg-primary text-white rounded-md p-2 w-6/12 text-center block mt-5 mx-auto">Apply</button>
+        <Link to = {`apply`} className="bg-primary text-white rounded-md p-2 w-6/12 text-center block mt-5 mx-auto">Apply</Link>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Apply from './pages/Apply';
 import Chatbot from './pages/Chatbot';
 import Login from './pages/Login';
 import Schemes from './pages/Schemes';
@@ -18,6 +19,8 @@ function App() {
         <Route path = "/chatbot" element = {<Chatbot />} />
         <Route path = "/schemes" element = {<Schemes />}/>
         <Route path = "/schemes/:id" element = {<SingleScheme />} />
+        <Route path = "/schemes/:id/apply" element = {<Apply />} />
+
        </Routes>
       </BrowserRouter>
       </main>

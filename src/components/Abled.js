@@ -15,7 +15,7 @@ const Abled = ({ data, setAbled, finalSubmit}) => {
         input.setAttribute("disabled", "true")
 
     })
-setTimeout(() =>   finalSubmit(id) ,2000)
+finalSubmit(id)
  
   };
 
