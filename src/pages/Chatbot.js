@@ -102,7 +102,7 @@ const Chatbot = () => {
     dispatch(getBen(finalData));
     setDisplaySplash(true);
 
-    fetch("http://momosa-api.herokuapp.com/match", {
+    fetch("https://momosa-api.herokuapp.com/match", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
