@@ -6,21 +6,21 @@ const Schemes = () => {
   const schemes = useSelector((state) => state.schemeReducer.schemes);
   const bens = useSelector((state) => state.benReducer.bens);
 
-  const [errorMsg, setErrorMsg] = useState("Loading...");
+  const [errorMsg, setErrorMsg] = useState("No schemes for you 😟");
   const [displayLink, setDisplayLink] = useState(false);
   const [displayModal, setDisplayModal] = useState(false);
 
   console.log(bens);
   console.log(schemes);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (schemes && schemes.length < 1) {
-        setErrorMsg("Sorry there are no schemes available for you now 😔");
-        setDisplayLink(true);
-      }
-    }, 3000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (schemes && schemes.length < 1) {
+  //       setErrorMsg("Sorry there are no schemes available for you now 😔");
+  //       setDisplayLink(true);
+  //     }
+  //   }, 3000);
+  // }, []);
 
   const handleSession = () => {
     setDisplayModal(true);
@@ -34,13 +34,13 @@ const Schemes = () => {
           <p className="text-lg text-black w-10/12 mx-auto text-center">
             {errorMsg}
           </p>
-          {displayLink && (
-            <Link
-              to="/chatbot"
+          {schemes && schemes.length === 0 && (
+            <a
+              href="/"
               className="bg-primary text-center px-4 py-2 w-4/12 block mt-5 mx-auto text-white rounded-md"
             >
               Retry
-            </Link>
+            </a>
           )}
         </div>
       )}
@@ -58,12 +58,12 @@ const Schemes = () => {
             </Link>
           </div>
         ))}
-         <button
+         {schemes && schemes.length > 0 &&<button
             className="bg-btnRed text-white rounded-md p-2 block mx-auto mt-10"
             onClick={handleSession}
           >
             End Sesstion
-          </button>
+          </button>}
     </div>
   );
 };

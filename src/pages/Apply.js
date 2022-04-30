@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Apply = () => {
     const {id} = useParams()
     const schemes = useSelector(state => state.schemeReducer.schemes);
     const filteredArray = schemes.filter(scheme => scheme._id.$oid === id);
+    const navigate = useNavigate();
     console.log(filteredArray)
     
     const [firstName, setFirstName] = useState("")
@@ -61,6 +62,8 @@ const handleSubmit = (e) => {
       body: JSON.stringify(object),
     }).then(res => res.json()).then(data => {
       console.log(data)
+      alert("Posted Successfully")
+      navigate("/")
     })
 
 }
