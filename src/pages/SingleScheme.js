@@ -29,7 +29,7 @@ const SingleScheme = () => {
             <div className="bg-chatbg p-3 rounded-lg w-11/12 mx-auto mt-5">
               <h3 className="font-semibold text-lg mb-3">Eligibility : </h3>
               <ul className="flex flex-col">
-                {scheme.eligibility.age && (
+                {scheme.eligibility.age.min && (
                   <li className="text-sm">
                     Age : {scheme.eligibility.age.min}
                   </li>
