@@ -20,6 +20,18 @@ import { getBen } from "../redux/action/BenAction";
 import Modal from "../components/Modal";
 
 const Chatbot = () => {
+
+  const {
+    data: questions,
+    isPendings,
+    error,
+  } = useFetch("https://momosa-api.herokuapp.com/questions");
+  const {
+    data: searchList,
+    isPendings: isPending2,
+    error: error2,
+  } = useFetch("https://momosa-api.herokuapp.com/searchlist");
+
   // Redux
   const dispatch = useDispatch();
 
@@ -132,30 +144,25 @@ const Chatbot = () => {
     marital,
   ]);
 
+  console.log(searchList)
+
   const handleChangeList = (e) => {
     setList(e.target.value);
+    const filterList = searchList.filter(list => list._id.$oid === e.target.value)
+    console.log(filterList)
+    localStorage.setItem("benificary", `${filterList[0].title.en}`)
     setShowChatPage(true);
     setDisplaySearchlist(false);
     setDisplayAge(true);
   };
-
+console.log(localStorage.getItem("benificary"))
   useEffect(() => {
     setTimeout(() => {
       setShowChatPage(false);
     }, 3000);
   }, [handleChangeList]);
 
-  const {
-    data: questions,
-    isPendings,
-    error,
-  } = useFetch("http://momosa-api.herokuapp.com/questions");
-  const {
-    data: searchList,
-    isPendings: isPending2,
-    error: error2,
-  } = useFetch("http://momosa-api.herokuapp.com/searchlist");
-
+ 
   //   console.log(questions && questions[2]);
 
   //   console.log(questions);

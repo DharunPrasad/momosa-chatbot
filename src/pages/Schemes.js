@@ -54,7 +54,7 @@ const Schemes = () => {
           <div className="bg-chatbg p-3 m-3 rounded-lg " key={scheme._id.$oid}>
             <Link to={`${scheme._id.$oid}`}>
               <p className="text-primary font-semibold">{scheme.title}</p>
-              <p className="">beneficiary</p>
+              <p className="">{localStorage.getItem("benificary")}</p>
             </Link>
           </div>
         ))}
